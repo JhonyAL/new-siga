@@ -27,4 +27,5 @@ Course_Teacher
 School
 	id,
 	name,
-	
+
+https://repositorio.ufsc.br/bitstream/handle/123456789/78647/178547.pdf?sequence=1&isAllowed=y

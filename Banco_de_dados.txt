@@ -1,0 +1,30 @@
+Student
+	id,
+	name,
+	email,
+	password,
+	ra,
+	rm,
+	School_id
+
+Teacher
+	id,
+	name,
+	email,
+	password,
+	School_id
+
+Course
+	id,
+	name,
+	School_id
+
+Course_Teacher
+	id,
+	Course_id,
+	Teacher_id
+	
+School
+	id,
+	name,
+	

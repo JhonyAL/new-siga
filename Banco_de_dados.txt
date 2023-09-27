@@ -1,31 +1,186 @@
-Student
-	id,
-	name,
-	email,
-	password,
-	ra,
-	rm,
-	School_id
+Estudante
+	ENDERECO_ID
+	CPF
+	TELEFONES
+	FOTO
+	RA
+	RM
+	NOME
+	DATANASCIMENTO
+	SENHA
+	GENERO
 
-Teacher
-	id,
-	name,
-	email,
-	password,
-	School_id
+Endereco
+	ID
+	BAIRRO
+	CEP
+	COMPLEMENTO
+	RUA
 
-Course
-	id,
-	name,
-	School_id
+Professor
+	ENDERECO_ID
+	CPF
+	TELEFONES
+	FOTO
+	RA
+	RM
+	NOME
+	GENERO
+	DATANASCIMENTO
+	SENHA
 
-Course_Teacher
-	id,
-	Course_id,
-	Teacher_id
-	
+Curso
+	SIGLA
+	NOME
+	CARGA_HORARIA
+	COORDENADOR
+
+Disciplina
+	CODIGO
+	NOME
+	SIGLA
+	PROFESSOR
+	CARGA_HORARIA
+	CURSO
+
+
+-- Tabela Estudante
+CREATE TABLE Estudante (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ENDERECO_ID INT,
+    CPF VARCHAR(11) UNIQUE,
+    TELEFONES VARCHAR(255),
+    FOTO VARCHAR(300),
+    RA VARCHAR(50),
+    RM VARCHAR(50),
+    NOME VARCHAR(255),
+    DATANASCIMENTO DATE,
+    SENHA VARCHAR(255),
+    GENERO VARCHAR(10)
+);
+
+-- Tabela Endereco
+CREATE TABLE Endereco (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    BAIRRO VARCHAR(255),
+    CEP VARCHAR(8),
+    COMPLEMENTO VARCHAR(255),
+    RUA VARCHAR(255)
+);
+
+-- Tabela Professor
+CREATE TABLE Professor (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ENDERECO_ID INT,
+    CPF VARCHAR(11) UNIQUE,
+    TELEFONES VARCHAR(255),
+    FOTO BLOB,
+    RA VARCHAR(10),
+    RM VARCHAR(10),
+    NOME VARCHAR(255),
+    GENERO VARCHAR(10),
+    DATANASCIMENTO DATE,
+    SENHA VARCHAR(255)
+);
+
+-- Tabela Curso
+CREATE TABLE Curso (
+    SIGLA VARCHAR(10) PRIMARY KEY,
+    NOME VARCHAR(255),
+    CARGA_HORARIA INT,
+    COORDENADOR INT -- Referência ao ID do Professor que é o coordenador do curso
+);
+
+-- Tabela Disciplina
+CREATE TABLE Disciplina (
+    CODIGO INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(255),
+    SIGLA VARCHAR(10),
+    PROFESSOR INT, -- Referência ao ID do Professor que ministra a disciplina
+    CARGA_HORARIA INT,
+    CURSO_SIGLA VARCHAR(10) -- Referência à SIGLA do Curso ao qual a disciplina pertence
+);
+
+-- Tabela Turma
+CREATE TABLE Turma (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(255),
+    CURSO_SIGLA VARCHAR(10), -- Referência à SIGLA do Curso da Turma
+    PROFESSOR INT, -- Referência ao ID do Professor responsável pela Turma
+    ALUNOS VARCHAR(255) -- Lista de IDs de alunos na turma (pode ser uma string JSON, por exemplo)
+);
+
+-- Tabela Matricula
+CREATE TABLE Matricula (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ALUNO INT, -- Referência ao ID do aluno
+    DISCIPLINA INT, -- Referência ao CODIGO da disciplina
+    NOTA_ATIVIDADE DECIMAL(5, 2),
+    MEDIA_BIMESTRAL DECIMAL(5, 2),
+    PRESENCA INT, -- 0 para ausente, 1 para presente
+    FALTAS INT
+);
+
+-- Tabela Agenda
+CREATE TABLE Agenda (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    TITULO VARCHAR(255),
+    DESCRICAO TEXT,
+    DATA_HORA DATETIME,
+    TIPO VARCHAR(20),
+    ALUNO INT, -- Referência ao ID do aluno (se aplicável)
+    PROFESSOR INT -- Referência ao ID do professor (se aplicável)
+);
+
+-- Tabela Noticias
+CREATE TABLE Noticias (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    TITULO VARCHAR(255),
+    CONTEUDO TEXT,
+    DATA_PUBLICACAO DATETIME,
+    AUTOR INT -- Referência ao ID do Professor que publicou a notícia
+);
+
+-- Tabela Atividades
+CREATE TABLE Atividades (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    DESCRICAO TEXT,
+    DATA_ENTREGA DATE,
+    DISCIPLINA INT -- Referência ao CODIGO da disciplina
+);
+
+-- Tabela Presenca
+CREATE TABLE Presenca (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    DATA_AULA DATE,
+    DISCIPLINA INT, -- Referência ao CODIGO da disciplina
+    ALUNO INT, -- Referência ao ID do aluno
+    PRESENTE BOOLEAN
+);
+
+
 School
 	id,
 	name,
+
+Cadastrar Pessoas: Informar os dados pessoais de cada aluno/professor como
+endereço, documentação, formação escolar, telefones, filiação, foto, naturalidade e
+nacionalidade, bem como a codificação única do aluno que será utilizada em vários
+processos do sistema.
+22
+- Cadastrar Cursos: Informar os dados pertencentes a cada Cursos como Sigla, Nome,
+Nível do Curso, Currículo Atual, Período Letivo Atual, Coordenador, Período de
+Aulas e Freqüência Mínima.
+- Cadastrar Disciplinas: Informar o Nome, Carga Horária Básica, Créditos e Número
+de Vagas, bem como a codificação única que será utilizada em vários processos do
+sistema.
+Cadastrar Currículos: Informar o Curso ao qual o currículo pertence, o período letivo
+inicial do currículo, o número de fases, a habilitação, as disciplinas e suas
+respectivas fases, pré-requisitos, ementas básicas e professor(es) titular(es).
+Cadastrar Turmas: Relacionar um período letivo a uma fase do currículo. Informar o
+horário e o(s) professor(es) de cada disciplina, bem como o conteúdo a ser lecionado
+(programa da disciplina). Pode ser elaborado uma função que calcule
+automaticamente os horários das turmas de um curso em um período letivo.
+
 
 https://repositorio.ufsc.br/bitstream/handle/123456789/78647/178547.pdf?sequence=1&isAllowed=y

@@ -1,0 +1,18 @@
+Professor
+    Logar
+    Atribuir menções aos alunos
+        nota de atividade, media bimestral, etec.
+    Atribuir presença a alunos
+    Atribuir atividades
+    Visualizar agenda
+    Cadastrar noticias
+    Visualizar noticias
+
+Aluno
+    Logar
+    Visualizar menções
+    Visualizar presença e faltas
+    Visualizar agenda
+    Visualizar atividades
+    Visualizar noticias
+    Visualiar curso, disciplina e horarios

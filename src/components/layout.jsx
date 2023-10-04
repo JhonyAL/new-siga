@@ -5,9 +5,9 @@ export default function Layout({ children }) {
   return (
     <>
         
-      {/* <Navbar />
-        <main classNameName='h-5/6'>{children}</main>
-      <Footer /> */}
+      <Navbar />
+        <main>{children}</main>
+      <Footer />
     </>
   )
 }

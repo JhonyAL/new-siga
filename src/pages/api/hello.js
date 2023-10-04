@@ -9,50 +9,24 @@ app.use(cors())
 app.use(express.json())
 
 const connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'siga'
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'siga'
 });
 
-app.get('/RM/:estudanteRM/password/:password', (req, res) => {
-  const reqParams = {
-    rm: req.params.rm
-  }
-  // const req = req
-  const query = `SELECT * FROM estudante WHERE estudante.rm = '${req.params.estudanteRM}' AND estudante.password = '${req.params.password}'`
-  // res.send(req.params)
-  // res.send(query)
+app.post('/', (req, res) => {
+  const data = req.body
+  const query = `SELECT * FROM estudante WHERE RM = '${data.estudanteRM}' AND SENHA = '${data.estudantePassword}'`
 
-  // function fetchID(data, callback) {
-  //   connection.query(`SELECT * FROM estudante WHERE RM = '${data.rm}'`, function(err, rows) {
-  //       if (err) {
-  //           callback(err, null);
-  //       } else {
-  //           callback(null, rows);
-  //       }
-  //   });
-  // }
-  // var user_id;
-  // fetchID(reqParams, function(err, content) {
-  //     if (err) {
-  //     console.log(err);
-  //     res.send(err);  
-  //     // Do something with your error...
-  //     } else {
-  //     user_id = content;
-  //     console.log(user_id);
-  //     res.send("user id is -" + user_id);
-  //     }
-  // });
-
-  connection.query(`SELECT * FROM estudante WHERE RM = '${reqParams.rm}'`, (err, results, fields) => {
+  connection.query(query, (err, results, fields) => {
     if(results){
-      res.json(results)
+      res.json(results[0])
+      return
     }
-    res.send(`SELECT * FROM estudante WHERE RM = '${reqParams.rm}'`)
+    res.json({"message": "Nenhum resultado foi retornado da base de dados."})
+    return
   })
-
 })
 
 app.listen(PORT, () => {

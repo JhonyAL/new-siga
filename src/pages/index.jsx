@@ -2,33 +2,51 @@ import Image from 'next/image'
 import '../app/globals.css'
 import { Navbar } from '../components'
 import Layout from '@/components/layout'
+import logo from '../assets/logo.png'
+import { useState } from 'react'
 
 export default function Home() {
+  const [userData, setUserData] = useState(null)
+
   const handleSubmitForm = (e) => {
     e.preventDefault()
-    console.log('OK')
+    const rm = document.querySelector('#textRM').value
+    const password = document.querySelector('#password').value
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: `{"estudanteRM":"${rm}","estudantePassword":"${password}"}`
+    };
+    
+    fetch('http://localhost:3001/', options)
+      .then(response => response.json())
+      .then(response => setUserData(response))
+      .catch(err => console.error(err));
   }
 
-  return (      
+  return (
+    userData ? 
+    <Layout />
+    :      
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-              Flowbite    
+              Acervo    
           </a>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                   <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                      Acesse sua conta do Siga
+                      Acesse sua conta
                   </h1>
                   <form className="space-y-4 md:space-y-6">
                       <div>
                           <label for="textRM" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RM</label>
-                          <input type="text" name="textRM" id="textRM" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                          <input type="text" name="textRM" id="textRM" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                       </div>
                       <div>
                           <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-                          <input type="password" name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                          <input type="password" name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                       </div>
                       <div className="flex items-center justify-between">
                           <div className="flex items-start">

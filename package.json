@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "nodemon ./src/pages/api/hello.js"
+    "server": "nodemon ./src/pages/api/"
   },
   "dependencies": {
     "autoprefixer": "10.4.15",

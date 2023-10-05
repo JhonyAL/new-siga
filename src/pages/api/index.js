@@ -20,11 +20,11 @@ app.post('/', (req, res) => {
   const query = `SELECT * FROM estudante WHERE RM = '${data.estudanteRM}' AND SENHA = '${data.estudantePassword}'`
 
   connection.query(query, (err, results, fields) => {
-    if(results){
+    if(results[0]){
       res.json(results[0])
       return
     }
-    res.json({"message": "Nenhum resultado foi retornado da base de dados."})
+    res.json(null)
     return
   })
 })

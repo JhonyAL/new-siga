@@ -21,7 +21,14 @@ app.post('/', (req, res) => {
 
   connection.query(query, (err, results, fields) => {
     if(results[0]){
-      res.json(results[0])
+      const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lenghtToken = 90;
+      let token = "";
+      for (let i = 0; i <= lenghtToken; i++) {
+        var randomNumber = Math.floor(Math.random() * chars.length);
+        token += chars.substring(randomNumber, randomNumber +1);
+      }
+      res.json({token: token, userId: results[0].ID})
       return
     }
     res.json(null)

@@ -1,6 +1,6 @@
-export const Navbar = () => {
+export const Navbar = ({ foto }) => {
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="bg-white navbar">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" className="flex items-center">
           <img
@@ -24,7 +24,7 @@ export const Navbar = () => {
             <span className="sr-only">Open user menu</span>
             <img
               className="w-8 h-8 rounded-full"
-              src="https://i.pinimg.com/originals/8c/94/27/8c9427054c6ba99702e8f97a1ba80b64.jpg"
+              src={foto}
               alt="user photo"
             />
           </button>
@@ -92,9 +92,9 @@ export const Navbar = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>

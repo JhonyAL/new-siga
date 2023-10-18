@@ -28,7 +28,8 @@ app.post('/', (req, res) => {
         var randomNumber = Math.floor(Math.random() * chars.length);
         token += chars.substring(randomNumber, randomNumber +1);
       }
-      res.json({token: token, userId: results[0].ID})
+      // res.json({token: token, userId: results[0].ID})
+      res.json(results[0])
       return
     }
     res.json(null)

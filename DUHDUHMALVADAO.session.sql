@@ -1,3 +1,14 @@
+-- Tabela Endereco
+CREATE TABLE Endereco (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    RUA VARCHAR(255),
+    NUMERO INT,
+    BAIRRO VARCHAR(255),
+    CIDADE VARCHAR(255),
+    ESTADO VARCHAR(255),
+    CEP VARCHAR(10)
+) Engine=InnoDB;
+
 -- Tabela Estudante
 CREATE TABLE Estudante (
     ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -12,7 +23,7 @@ CREATE TABLE Estudante (
     SENHA VARCHAR(255),
     GENERO VARCHAR(10),
     FOREIGN KEY (ENDERECO_ID) REFERENCES Endereco(ID)
-);
+)Engine=InnoDB;
 
 -- Tabela Professor
 CREATE TABLE Professor (
@@ -28,7 +39,7 @@ CREATE TABLE Professor (
     DATANASCIMENTO DATE,
     SENHA VARCHAR(255),
     FOREIGN KEY (ENDERECO_ID) REFERENCES Endereco(ID)
-);
+)Engine=InnoDB;
 
 -- Tabela Curso
 CREATE TABLE Curso (
@@ -37,7 +48,7 @@ CREATE TABLE Curso (
     CARGA_HORARIA INT,
     COORDENADOR INT, -- Referência ao ID do Professor que é o coordenador do curso
     FOREIGN KEY (COORDENADOR) REFERENCES Professor(ID)
-);
+)Engine=InnoDB;
 
 -- Tabela Disciplina
 CREATE TABLE Disciplina (
@@ -49,7 +60,7 @@ CREATE TABLE Disciplina (
     CURSO_SIGLA VARCHAR(10), -- Referência à SIGLA do Curso ao qual a disciplina pertence
     FOREIGN KEY (PROFESSOR) REFERENCES Professor(ID),
     FOREIGN KEY (CURSO_SIGLA) REFERENCES Curso(SIGLA)
-);
+)Engine=InnoDB;
 
 -- Tabela Turma
 CREATE TABLE Turma (
@@ -60,20 +71,28 @@ CREATE TABLE Turma (
     ALUNOS VARCHAR(255), -- Lista de IDs de alunos na turma (pode ser uma string JSON, por exemplo)
     FOREIGN KEY (CURSO_SIGLA) REFERENCES Curso(SIGLA),
     FOREIGN KEY (PROFESSOR) REFERENCES Professor(ID)
-);
+)Engine=InnoDB;
+
+-- Tabela Disciplina-Media
+CREATE TABLE DisciplinaAluno (
+    DISCIPLINA_CODIGO INT,
+    ESTUDANTE_ID INT,
+    FALTAS INT,
+    BIMESTRE INT,
+    MEDIA VARCHAR(2),
+    FOREIGN KEY (ESTUDANTE_ID) REFERENCES Estudante(ID),
+    FOREIGN KEY (DISCIPLINA_CODIGO) REFERENCES Disciplina(Codigo)
+)ENGINE=InnoDB;
 
 -- Tabela Matricula
 CREATE TABLE Matricula (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     ALUNO INT, -- Referência ao ID do aluno
-    DISCIPLINA INT, -- Referência ao CODIGO da disciplina
-    NOTA_ATIVIDADE DECIMAL(5, 2),
-    MEDIA_BIMESTRAL DECIMAL(5, 2),
-    PRESENCA INT, -- 0 para ausente, 1 para presente
-    FALTAS INT,
+    CURSO_SIGLA VARCHAR(10), -- Referência ao CODIGO da disciplina
+    FALTAS_TOTAIS INT,
     FOREIGN KEY (ALUNO) REFERENCES Estudante(ID),
-    FOREIGN KEY (DISCIPLINA) REFERENCES Disciplina(CODIGO)
-);
+    FOREIGN KEY (CURSO_SIGLA) REFERENCES Curso(SIGLA)
+)Engine=InnoDB;
 
 -- Tabela Agenda
 CREATE TABLE Agenda (
@@ -86,7 +105,7 @@ CREATE TABLE Agenda (
     PROFESSOR INT, -- Referência ao ID do professor (se aplicável)
     FOREIGN KEY (ALUNO) REFERENCES Estudante(ID),
     FOREIGN KEY (PROFESSOR) REFERENCES Professor(ID)
-);
+)Engine=InnoDB;
 
 -- Tabela Noticias
 CREATE TABLE Noticias (
@@ -96,16 +115,25 @@ CREATE TABLE Noticias (
     DATA_PUBLICACAO DATETIME,
     AUTOR INT, -- Referência ao ID do Professor que publicou a notícia
     FOREIGN KEY (AUTOR) REFERENCES Professor(ID)
-);
+)Engine=InnoDB;
 
 -- Tabela Atividades
 CREATE TABLE Atividades (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     DESCRICAO TEXT,
     DATA_ENTREGA DATE,
+    DATA_INICIO DATE,
     DISCIPLINA INT, -- Referência ao CODIGO da disciplina
     FOREIGN KEY (DISCIPLINA) REFERENCES Disciplina(CODIGO)
-);
+)Engine=InnoDB;
+
+CREATE TABLE Atividade_Aluno (
+    ALUNO_ID INT,
+    ATIVIDADE_ID INT,
+    NOTA VARCHAR(2),
+    FOREIGN KEY (ALUNO_ID) REFERENCES ESTUDANTE(ID),
+    FOREIGN KEY (ATIVIDADE_ID) REFERENCES ATIVIDADES(ID)
+)ENGINE=InnoDB;
 
 -- Tabela Presenca
 CREATE TABLE Presenca (
@@ -116,4 +144,4 @@ CREATE TABLE Presenca (
     PRESENTE BOOLEAN,
     FOREIGN KEY (DISCIPLINA) REFERENCES Disciplina(CODIGO),
     FOREIGN KEY (ALUNO) REFERENCES Estudante(ID)
-);
+)Engine=InnoDB;

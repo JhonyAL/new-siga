@@ -38,7 +38,7 @@ export default function Home() {
   return (
     session ? 
     <Layout sessionUser={session}>
-      <h1>HEYHEYHEY</h1>
+      <h1>ACERVO SITE</h1>
     </Layout>
     :      
     <section className="bg-gray-50 dark:bg-gray-900">

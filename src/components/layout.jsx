@@ -12,7 +12,7 @@ export default function Layout({ children, sessionUser }) {
         
       <Navbar foto={user.FOTO}/>
         <main className='bg-white main'>{children}</main>
-      <Footer className="footer"/>
+      {/* <Footer className="footer"/> */}
     </>
   )
 }

@@ -9,7 +9,7 @@ export default function PerfilDropdown({ perfil }) {
   ];
 
   return (
-    <div className="absolute shadow rounded-lg top-12 right-0 my-5 bg-white w-64">
+    <div className="absolute shadow rounded-lg top-14 right-0 my-5 bg-white w-64 before:content-[''] before:-top-3 before:border-b-white before:border-x-transparent before:border-solid  before:right-0 before:absolute perfilDropdown">
       <div className="px-4 py-3 text-sm text-gray-900 dark:text-white text-xs flex flex-col">
         <span className='font-medium text-sm'>{perfil.NOME}</span>
         <span className='px-2'>RA: {perfil.RA}</span>
@@ -37,7 +37,7 @@ export default function PerfilDropdown({ perfil }) {
         </li>
         <li>
           <Link
-            href="/"
+            href="/fichadesempenho"
             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >
             Ficha de Desempenho

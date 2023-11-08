@@ -11,3 +11,9 @@
     left: 0;
     width: 100vw;
 }
+
+.perfilDropdown::before {
+    border-width: 0 40px 40px 40px;
+}
+
+/* before:border-x-8 before:border-t-0 before:border-b-8 */

@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import '../app/globals.css'
-import { Navbar } from '../components'
 import Layout from '@/components/layout'
 import logo from '../assets/logo.png'
 import { useEffect, useState } from 'react'
+import { router } from 'next/router';
 
 import Logo from './../assets/Acervo_Logo.png'
 
@@ -35,6 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     setSession(localStorage.getItem('user') ?? null)
+    console.log(router.pathname)
   }, [])
 
   return (

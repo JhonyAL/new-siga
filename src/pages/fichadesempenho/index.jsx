@@ -8,20 +8,11 @@ export default function FichaDeDesempenho () {
     const [load, setLoad] = useState(false)
     const router = useRouter()
 
-
-    useEffect(() => {
-        if (localStorage.getItem('user')){
-            setSession(localStorage.getItem('user'))
-            setLoad(true)
-        }
-        else {
-            router.push('/')
-        }
-      }, [])    
+    useEffect(() => {document.title = "Ficha de Desempenho"}, [])
+   
 
     return (
-        load ? <></> :
-        <h1>Ficha de Desempenho</h1>
+        <div>Ficha de Desempenhoasdasdsadasdsadsad</div>
         // <Layout sessionUser={session}>
         //     <h1>Ficha de Desempenho</h1>
         // </Layout>

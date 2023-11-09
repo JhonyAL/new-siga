@@ -7,7 +7,8 @@ export default function Layout({ children, sessionUser }) {
   const [user, setUser] = useState(JSON.parse(sessionUser))
   useEffect(() => {
     console.log(user.NOME)
-    document.querySelector('main').classList.add(`mt-${(document.getElementById("navbar").offsetHeight) / 4}`)
+    document.querySelector('main').classList.add(`mt-16`)
+    // mt-${(document.getElementById("navbar").offsetHeight) / 4}
   }, [])
 
   return (

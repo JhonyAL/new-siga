@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 import { router } from 'next/router';
 import Logo from './../assets/Acervo_Logo.png'
 
- 
-export default function MyApp({ Component, pageProps }) {
-    const [session, setSession] = useState(null)
+
+const LoginPage = ({ session, setSession }) => {
+    useEffect(() => {document.title = "Acervo"}, [])
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
@@ -31,18 +31,8 @@ export default function MyApp({ Component, pageProps }) {
         })
         .catch(err => console.error(err));
     }
-
-    useEffect(() => {
-        setSession(localStorage.getItem('user') ?? null)
-        console.log(router.pathname)
-    }, [])
-
+    
     return (
-        session ? 
-        <Layout sessionUser={session}>
-            <Component {...pageProps} />
-        </Layout>
-        :      
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -80,5 +70,23 @@ export default function MyApp({ Component, pageProps }) {
                 </div>
             </div>
         </section>
+    )
+}
+ 
+export default function MyApp({ Component, pageProps }) {
+    const [session, setSession] = useState(null)
+
+    useEffect(() => {
+        setSession(localStorage.getItem('user') ?? null)
+        console.log(router.pathname)
+    }, [])
+
+    return (
+        session ? 
+        <Layout sessionUser={session}>
+            <Component {...pageProps} />
+        </Layout>
+        :      
+        <LoginPage session={session} setSession={setSession}/>
     )
 }

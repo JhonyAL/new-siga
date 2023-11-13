@@ -8,6 +8,19 @@ module.exports = {
 
   theme: {
     extend: {
+      animation: {
+        'bounce-slow': 'bounceSlow 4.5s infinite'
+      },
+      keyframes: {
+        bounceSlow: {
+          '0%, 100%': {
+            transform: 'translateY(-12.5%)',
+          },
+          '50%': {
+            transform: 'translateY(0)',
+          },
+      }
+    },
       colors: {
         primary: {
           50: "#eff6ff",

@@ -1,12 +1,28 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from './../../assets/Acervo_Logo.png'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PerfilDropdown from './PerfilDropdown';
 
 export const Navbar = ({ perfil }) => {
 
   const [perfilDropdown, setPerfilDropdown] = useState(false)
+  const modalEl = useRef();
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (!modalEl.current) {
+        return;
+      }
+      if (!modalEl.current.contains(event.target)) {
+        setPerfilDropdown(false);
+      }
+    }
+    document.addEventListener("click", handler, true);
+    return () => {
+      document.removeEventListener("click", handler);
+    }
+  }, [])
 
   return (
     <nav className='flex justify-between bg-white w-screen absolute top-0 right-0 px-8' id="navbar">
@@ -24,11 +40,13 @@ export const Navbar = ({ perfil }) => {
         </ul>
       </div>
       <div className="flex items-center relative">
-        <div className="flex items-center space-x-4 cursor-pointer" onClick={() => setPerfilDropdown(!perfilDropdown)}>
-          <Image src={perfil.FOTO}  alt="Foto de perfil" className="h-9 w-9 rounded-full object-cover" width="60" height="50" />
-          <p className='font-semibold'>{perfil.NOME}</p>
+        <div ref={modalEl}>
+          <div className="flex items-center space-x-4 cursor-pointer" onClick={() => setPerfilDropdown(!perfilDropdown)}>
+            <Image src={perfil.FOTO}  alt="Foto de perfil" className="h-9 w-9 rounded-full object-cover" width="60" height="50" />
+            <p className='font-semibold'>{perfil.NOME}</p>
+          </div>
+            {perfilDropdown ? <PerfilDropdown perfil={perfil}/> : <></>}
         </div>
-        {perfilDropdown ? <PerfilDropdown perfil={perfil}/> : <></>}
       </div>
     </nav>
   )

@@ -20,5 +20,5 @@ body {
   color: rgb(var(--foreground-rgb));
   max-height: 100vh;
   max-width: 100vw;
-  background: #eee;
+  background: rgb(254 252 232);;
 }

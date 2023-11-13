@@ -84,7 +84,7 @@ export default function MyApp({ Component, pageProps }) {
     return (
         session ? 
         <Layout sessionUser={session}>
-            <Component {...pageProps} />
+            <Component {...pageProps} sessionUser={session}/>
         </Layout>
         :      
         <LoginPage session={session} setSession={setSession}/>

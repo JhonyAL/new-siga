@@ -25,7 +25,7 @@ export const Navbar = ({ perfil }) => {
   }, [])
 
   return (
-    <nav className='flex justify-between bg-white w-screen absolute top-0 right-0 px-8' id="navbar">
+    <nav className='flex justify-between bg-yellow-600/[.25] w-screen absolute top-0 right-0 px-8' id="navbar">
       <div className='py-4 items-center '>
         <Link href="/" className='flex flex-row space-x-4'>
           <Image className="h-8 w-11 object-cover" src={Logo} alt="logo" />
